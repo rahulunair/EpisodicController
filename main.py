@@ -1,8 +1,3 @@
-#! /usr/env python
-from petri import petri
-
-
-# from agents.env import TempEnv # Import environment before running
 from mfec import EPCAgent
 from mfec import HPS
 
@@ -27,10 +22,6 @@ if __name__ == "__main__":
     done = False
     additive_rewards = 0
 
-    # save hyper parameters
-    logger.save({k: v for k, v in HPS.__dict__.items() if not k.startswith("_")},
-                tofile="hp")
-
     for e in range(episodes):
         print("=" * 45)
         print("Episode: ", e)
@@ -47,9 +38,3 @@ if __name__ == "__main__":
         additive_rewards = additive_rewards * 0.95 + rewards * 0.05
         if e % 40 == 0:
             print("Reward till episode {} is:{} ".format(e, additive_rewards))
-        logger.save('%d,%d,%d,%f,%f,%d' % (e,
-                                           steps,
-                                           max_steps,
-                                           additive_rewards,
-                                           agent.eps,
-                                           agent.memory.index), tofile="epc_rewards")
